@@ -1,0 +1,468 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>基于Java实现的数据库项目 | Carey</title><meta name="author" content="Carey"><meta name="copyright" content="Carey"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="项目地址 saivenl&#x2F;wang-db-project: 基于java实现的数据库项目 代码模块 123451. Transaction Manager (TM)   &#x3D;&#x3D;&gt; 事务管理模块2. Data Manager (DM)          &#x3D;&#x3D;&gt; 数据管理模块3. Version Manager (VM)       &#x3D;&#x3D;&gt; 版本管理模块4. Index Ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Java实现的数据库项目">
+<meta property="og:url" content="http://example.com/2024/11/06/%E5%9F%BA%E4%BA%8EJava%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%A1%B9%E7%9B%AE/index.html">
+<meta property="og:site_name" content="Carey">
+<meta property="og:description" content="项目地址 saivenl&#x2F;wang-db-project: 基于java实现的数据库项目 代码模块 123451. Transaction Manager (TM)   &#x3D;&#x3D;&gt; 事务管理模块2. Data Manager (DM)          &#x3D;&#x3D;&gt; 数据管理模块3. Version Manager (VM)       &#x3D;&#x3D;&gt; 版本管理模块4. Index Ma">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.pixabay.com/photo/2024/06/30/16/37/cat-8863536_1280.png">
+<meta property="article:published_time" content="2024-11-06T01:43:59.000Z">
+<meta property="article:modified_time" content="2024-11-06T01:44:27.243Z">
+<meta property="article:author" content="Carey">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.pixabay.com/photo/2024/06/30/16/37/cat-8863536_1280.png"><link rel="shortcut icon" href="/img/bird.png"><link rel="canonical" href="http://example.com/2024/11/06/%E5%9F%BA%E4%BA%8EJava%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%A1%B9%E7%9B%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '基于Java实现的数据库项目',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-06 09:44:27'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.pixabay.com/photo/2024/06/30/16/37/cat-8863536_1280.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categeories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.pixabay.com/photo/2024/02/17/09/39/cat-8579018_1280.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Carey"><span class="site-name">Carey</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categeories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">基于Java实现的数据库项目</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-11-06T01:43:59.000Z" title="Created 2024-11-06 09:43:59">2024-11-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-06T01:44:27.243Z" title="Updated 2024-11-06 09:44:27">2024-11-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="基于Java实现的数据库项目"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>项目地址 <a target="_blank" rel="noopener" href="https://github.com/saivenl/wang-db-project">saivenl&#x2F;wang-db-project: 基于java实现的数据库项目</a></p>
+<p>代码模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. Transaction Manager (TM)   ==&gt; 事务管理模块</span><br><span class="line">2. Data Manager (DM)          ==&gt; 数据管理模块</span><br><span class="line">3. Version Manager (VM)       ==&gt; 版本管理模块</span><br><span class="line">4. Index Manager (IM)         ==&gt; 索引管理模块</span><br><span class="line">5. Table Manager (TBM)        ==&gt; 表管理模块</span><br></pre></td></tr></table></figure>
+
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><h3 id="第一步：调整编译版本"><a href="#第一步：调整编译版本" class="headerlink" title="第一步：调整编译版本"></a><strong>第一步：调整编译版本</strong></h3><p>首先确保项目的编译版本适配 JDK：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;</span><br><span class="line">    &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure>
+
+<p>确认后，保存 <font color="red"><code>pom.xml</code></font>，然后可以继续执行以下步骤</p>
+<h3 id="第二步：编译项目"><a href="#第二步：编译项目" class="headerlink" title="第二步：编译项目"></a><strong>第二步：编译项目</strong></h3><p>使用 Maven 编译项目源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn compile</span><br></pre></td></tr></table></figure>
+
+<p>确保终端已经定位到项目根目录，然后运行上述命令来编译所有源码。</p>
+<h3 id="第三步：创建数据库"><a href="#第三步：创建数据库" class="headerlink" title="第三步：创建数据库"></a><strong>第三步：创建数据库</strong></h3><p>执行以下命令，以指定路径创建数据库（将 <code>/tmp/mydb</code> 替换为适合您的系统的路径，例如 <code>D:/mydatabase</code>）：</p>
+<p> <font color="blue">使用双引号包裹整个参数，并在内部使用单引号</font></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mvn exec:java &quot;-Dexec.mainClass=com.example.mydb.backend.common.MydbApplication&quot; &quot;-Dexec.args=&#x27;-create D:\coding\java\wang_db\tes&#x27;&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn exec:java -Dexec.mainClass=com.example.mydb.backend.common.MydbApplication -Dexec.args=&quot;-create D:/coding/java/wang_db/tes&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="第四步：启动数据库服务"><a href="#第四步：启动数据库服务" class="headerlink" title="第四步：启动数据库服务"></a><strong>第四步：启动数据库服务</strong></h3><p>数据库创建完成后，使用以下命令来启动数据库服务：&#x3D;&#x3D;会抛异常&#x3D;&#x3D;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn exec:java &quot;-Dexec.mainClass=com.example.mydb.backend.common.MydbApplication&quot; &quot;-Dexec.args=&#x27;-open D:\coding\java\wang_db\tes&#x27;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn exec:java -Dexec.mainClass=com.example.mydb.backend.common.MydbApplication -Dexec.args=&quot;-open D:/coding/java/wang_db/tes&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这将会启动数据库服务并绑定到本地 9999 端口。</p>
+<h3 id="第五步：启动客户端"><a href="#第五步：启动客户端" class="headerlink" title="第五步：启动客户端"></a><strong>第五步：启动客户端</strong></h3><p>在启动了数据库服务之后，需要再打开一个终端来启动数据库客户端。执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn exec:java -&quot;Dexec.mainClass=com.example.mydb.client.Launcher&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这将启动一个交互式命令行，允许您通过类 SQL 语法与数据库进行交互。</p>
+<p>&#x3D;&#x3D;测试&#x3D;&#x3D;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create table test table id int32, value int32(index id)</span><br><span class="line">insert into test table values 10 33</span><br><span class="line">select *from test table where id=10</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="一、页面索引与-DM-的实现"><a href="#一、页面索引与-DM-的实现" class="headerlink" title="一、页面索引与 DM 的实现"></a>一、页面索引与 DM 的实现</h1><h3 id="1-页面索引设计分析"><a href="#1-页面索引设计分析" class="headerlink" title="1. 页面索引设计分析"></a>1. 页面索引设计分析</h3><h4 id="1-1-锁机制与页面管理"><a href="#1-1-锁机制与页面管理" class="headerlink" title="1.1 锁机制与页面管理"></a>1.1 锁机制与页面管理</h4><ul>
+<li><strong>锁机制</strong>：<code>PageImpl</code> 使用 <code>ReentrantLock</code> 实现锁，用于确保对页面的操作是线程安全的。在多线程环境下，可能会有多个线程同时尝试修改页面的数据，因此需要通过锁机制来确保互斥访问。</li>
+<li><strong>页面脏标记（Dirty Page）</strong>：<code>setDirty()</code> 和 <code>isDirty()</code> 提供了页面是否被修改的标记，用于在事务提交时识别哪些页面需要写回磁盘。被标记为脏页的页面将在适当的时机（如事务提交时）被刷写到磁盘，以保证数据的持久性。</li>
+</ul>
+<h4 id="1-2-PageOne-的有效性检查"><a href="#1-2-PageOne-的有效性检查" class="headerlink" title="1.2 PageOne 的有效性检查"></a>1.2 <code>PageOne</code> 的有效性检查</h4><ul>
+<li><p>数据库有效性：</p>
+<p>PageOne通过在数据库启动和关闭时对特定位置的数据进行读写，用于判断数据库是否在上次关闭时发生了异常。</p>
+<ul>
+<li>如果 <code>100~107</code> 字节和 <code>108~115</code> 字节的内容不相同，则意味着数据库上次可能因为异常崩溃而未正常关闭，这时需要执行恢复流程。</li>
+<li>这种设计非常实用且高效，不需要额外维护复杂的元数据，只通过简单的数据写入和校验即可实现数据库有效性检查。</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-3-资源管理"><a href="#1-3-资源管理" class="headerlink" title="1.3 资源管理"></a>1.3 资源管理</h4><ul>
+<li><strong>页面释放</strong>：<code>release()</code> 方法通过调用 <code>PageCache</code> 中的 <code>release()</code> 方法，将页面释放回缓存。这种机制确保了内存中缓存的页面在使用完毕后能够及时释放，避免内存占用过多。</li>
+<li><strong><code>PageCache</code> 管理</strong>：<code>PageImpl</code> 依赖 <code>PageCache</code> 管理页面的生命周期。通过 <code>PageCache</code>，可以控制哪些页面被缓存，哪些页面需要刷写到磁盘。这种设计将页面的内存管理和生命周期控制从具体页面对象中解耦，使得缓存策略更加灵活。</li>
+</ul>
+<h4 id="1-4-总结"><a href="#1-4-总结" class="headerlink" title="1.4. 总结"></a>1.4. 总结</h4><p>在 MYDB 的实现中，<code>Page</code> 和 <code>PageOne</code> 扮演着至关重要的角色：</p>
+<ul>
+<li>**<code>Page</code> 和 <code>PageImpl</code>**：<ul>
+<li><code>Page</code> 是对数据库数据页的抽象，提供锁机制、页面释放和脏页标记等功能。</li>
+<li><code>PageImpl</code> 通过 <code>ReentrantLock</code> 实现锁机制，确保对页面的并发访问是线程安全的，并且通过 <code>PageCache</code> 进行页面的管理与释放。</li>
+</ul>
+</li>
+<li><strong><code>PageOne</code> 的特殊管理</strong>：<ul>
+<li><code>PageOne</code> 通过简单的有效性检查字节实现了数据库启动和关闭的有效性判断。</li>
+<li>这种设计使得数据库能够快速判断上一次是否正常关闭，如果不正常关闭则需要执行恢复操作，以保证数据一致性。</li>
+</ul>
+</li>
+</ul>
+<p>这些机制共同确保了数据库在多线程环境下的数据一致性和崩溃恢复能力，同时通过高效的页面管理和缓存策略，提升了数据库的性能。</p>
+<h1 id="二、死锁与事务隔离"><a href="#二、死锁与事务隔离" class="headerlink" title="二、死锁与事务隔离"></a>二、死锁与事务隔离</h1><p><code>Entry</code> 类封装了一个数据项，并将其与事务管理紧密结合，实现了多版本控制（MVCC）的核心逻辑。主要功能如下：</p>
+<ul>
+<li><strong>生命周期管理</strong>：通过 <code>XMIN</code> 和 <code>XMAX</code> 字段记录每个数据项的创建和删除事务。</li>
+<li><strong>读写操作</strong>：提供数据的读取方法 <code>data()</code> 和设置删除标志的方法 <code>setXmax()</code>。</li>
+<li><strong>事务可见性支持</strong>：通过 <code>XMIN</code> 和 <code>XMAX</code> 支持不同事务间的数据可见性控制。</li>
+<li>**封装底层 <code>DataItem</code>**：将底层的数据项封装成一个更易于管理和操作的对象，同时利用 <code>VersionManager</code> 进行版本控制和缓存管理。</li>
+<li><strong>缓存与版本控制</strong>：通过对数据项的封装，以及利用 <code>VersionManager</code> 中的缓存机制，提高了数据库的读取效率，同时通过锁的使用保证了多事务环境中的数据安全。</li>
+</ul>
+<p><strong><code>VersionManagerImpl</code></strong> 是 MYDB 中用于管理数据版本控制和事务调度的关键组件。它用于在多事务环境中管理数据的读写操作，确保 MVCC（多版本并发控制）的一致性和事务隔离性。这是实现数据库事务调度、并发控制的关键部分，支持不同的隔离级别（如可重复读等），并维护事务的生命周期。</p>
+<p>通过对事务的管理和数据项的版本控制，<code>VersionManagerImpl</code> 提供了 MVCC 机制，以确保数据库在高并发环境中的一致性和隔离性。</p>
+<p><strong>读写数据</strong>：提供对数据的读、插入、删除操作，确保每个数据操作都遵循事务的隔离级别。</p>
+<p><strong>事务管理</strong>：包括开启 (<code>begin</code>)、提交 (<code>commit</code>)、中止 (<code>abort</code>) 事务的功能。</p>
+<p><strong>并发控制</strong>：通过锁表和锁机制防止多个事务同时修改同一数据，防止并发冲突。</p>
+<p><strong>缓存管理</strong>：通过继承自 <code>AbstractCache&lt;Entry&gt;</code>，实现对 <code>Entry</code> 数据项的缓存，减少频繁的数据读取，提升性能。</p>
+<h1 id="三、IM索引管理"><a href="#三、IM索引管理" class="headerlink" title="三、IM索引管理"></a>三、IM索引管理</h1><h3 id="3-1-BPlusTree-类"><a href="#3-1-BPlusTree-类" class="headerlink" title="3.1. BPlusTree 类"></a>3.1. <code>BPlusTree</code> 类</h3><p><code>BPlusTree</code> 类是 B+ 树的整体管理器，它维护了树的根节点和与数据管理的接口。</p>
+<h4 id="1-1-数据结构和构造方法"><a href="#1-1-数据结构和构造方法" class="headerlink" title="1.1 数据结构和构造方法"></a>1.1 数据结构和构造方法</h4><ul>
+<li><strong>成员变量</strong>:<ul>
+<li>**<code>DataManager dm</code>**：用于与数据管理层交互，提供对 <code>DataItem</code> 的操作接口。</li>
+<li>**<code>long bootUid</code>**：根节点的唯一标识符（UID）。</li>
+<li>**<code>DataItem bootDataItem</code>**：保存根节点的元数据。</li>
+<li>**<code>Lock bootLock</code>**：用于保证对根节点的并发操作是线程安全的。</li>
+</ul>
+</li>
+<li>**<code>create(DataManager dm)</code>**：<ul>
+<li>创建 B+ 树时，首先创建一个空的根节点 (<code>newNilRootRaw()</code>)。</li>
+<li>使用 <code>DataManager</code> 将根节点插入数据库，并返回根节点的 UID。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static long create(DataManager dm) throws Exception &#123;</span><br><span class="line">    byte[] rawRoot = Node.newNilRootRaw();</span><br><span class="line">    long rootUid = dm.insert(TransactionManagerImpl.SUPER_XID, rawRoot);</span><br><span class="line">    return dm.insert(TransactionManagerImpl.SUPER_XID, Parser.long2Byte(rootUid));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>load(long bootUid, DataManager dm)</code><ul>
+<li>从已有的数据库中加载 B+ 树，通过 <code>bootUid</code> 定位根节点。</li>
+<li>创建一个新的 <code>BPlusTree</code> 对象，并初始化其根节点和其他必要的参数。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static BPlusTree load(long bootUid, DataManager dm) throws Exception &#123;</span><br><span class="line">    DataItem bootDataItem = dm.read(bootUid);</span><br><span class="line">    assert bootDataItem != null;</span><br><span class="line">    BPlusTree t = new BPlusTree();</span><br><span class="line">    t.bootUid = bootUid;</span><br><span class="line">    t.dm = dm;</span><br><span class="line">    t.bootDataItem = bootDataItem;</span><br><span class="line">    t.bootLock = new ReentrantLock();</span><br><span class="line">    return t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-基本操作"><a href="#3-2-基本操作" class="headerlink" title="3.2 基本操作"></a>3.2 基本操作</h3><ul>
+<li><code>rootUid()</code><ul>
+<li>获取根节点的 UID，使用锁来确保多线程环境下访问的安全性。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private long rootUid() &#123;</span><br><span class="line">    bootLock.lock();</span><br><span class="line">    try &#123;</span><br><span class="line">        SubArray sa = bootDataItem.data();</span><br><span class="line">        return Parser.parseLong(Arrays.copyOfRange(sa.raw, sa.start, sa.start + 8));</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        bootLock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>updateRootUid(long left, long right, long rightKey)</code><ul>
+<li>更新根节点，当树发生分裂时调用。</li>
+<li>创建新的根节点，并将新根的 UID 更新到 <code>bootDataItem</code>。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private void updateRootUid(long left, long right, long rightKey) throws Exception &#123;</span><br><span class="line">    bootLock.lock();</span><br><span class="line">    try &#123;</span><br><span class="line">        byte[] rootRaw = Node.newRootRaw(left, right, rightKey);</span><br><span class="line">        long newRootUid = dm.insert(TransactionManagerImpl.SUPER_XID, rootRaw);</span><br><span class="line">        bootDataItem.before();</span><br><span class="line">        SubArray diRaw = bootDataItem.data();</span><br><span class="line">        System.arraycopy(Parser.long2Byte(newRootUid), 0, diRaw.raw, diRaw.start, 8);</span><br><span class="line">        bootDataItem.after(TransactionManagerImpl.SUPER_XID);</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        bootLock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>search(long key)</code>和<code>searchRange(long leftKey, long rightKey)</code><ul>
+<li>**<code>search(long key)</code>**：用于查找指定的键。</li>
+<li>**<code>searchRange(long leftKey, long rightKey)</code>**：用于查找给定范围内的所有键，首先找到最左边的叶子节点，然后遍历叶子节点，直到超出右边界。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Long&gt; <span class="title function_">search</span><span class="params">(<span class="type">long</span> key)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">return</span> searchRange(key, key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> List&lt;Long&gt; <span class="title function_">searchRange</span><span class="params">(<span class="type">long</span> leftKey, <span class="type">long</span> rightKey)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">long</span> <span class="variable">rootUid</span> <span class="operator">=</span> rootUid();</span><br><span class="line">    <span class="type">long</span> <span class="variable">leafUid</span> <span class="operator">=</span> searchLeaf(rootUid, leftKey);</span><br><span class="line">    List&lt;Long&gt; uids = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">leaf</span> <span class="operator">=</span> Node.loadNode(<span class="built_in">this</span>, leafUid);</span><br><span class="line">        <span class="type">LeafSearchRangeRes</span> <span class="variable">res</span> <span class="operator">=</span> leaf.leafSearchRange(leftKey, rightKey);</span><br><span class="line">        leaf.release();</span><br><span class="line">        uids.addAll(res.uids);</span><br><span class="line">        <span class="keyword">if</span> (res.siblingUid == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            leafUid = res.siblingUid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> uids;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>insert(long key, long uid)</code><ul>
+<li>在 B+ 树中插入一个键值对，根节点可能会分裂，因此可能需要更新根节点。</li>
+<li>使用递归的方法在合适的节点插入数据，如果节点需要分裂，则逐层向上递归处理。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public void insert(long key, long uid) throws Exception &#123;</span><br><span class="line">    long rootUid = rootUid();</span><br><span class="line">    InsertRes res = insert(rootUid, uid, key);</span><br><span class="line">    assert res != null;</span><br><span class="line">    if (res.newNode != 0) &#123;</span><br><span class="line">        updateRootUid(rootUid, res.newNode, res.newKey);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-Node-类"><a href="#3-3-Node-类" class="headerlink" title="3.3. Node 类"></a>3.3. <code>Node</code> 类</h3><p><code>Node</code> 类表示 B+ 树中的一个节点，节点可以是叶子节点，也可以是内部节点。它存储数据并提供操作和管理这些数据的方法。</p>
+<h4 id="3-3-1-数据结构"><a href="#3-3-1-数据结构" class="headerlink" title="3.3.1 数据结构"></a>3.3.1 数据结构</h4><ul>
+<li><strong>Node 的结构</strong>：<ul>
+<li>**<code>LeafFlag</code>**：标记节点是否为叶子节点。</li>
+<li>**<code>KeyNumber</code>**：节点中键的数量。</li>
+<li>**<code>SiblingUid</code>**：兄弟节点的 UID（用于连接叶子节点）。</li>
+<li>**<code>[SonN][KeyN]</code>**：表示子节点 UID 和对应的键。</li>
+</ul>
+</li>
+<li>**<code>BALANCE_NUMBER</code>**：B+ 树节点中保存键的数量平衡点。用于决定节点是否需要分裂。</li>
+</ul>
+<h4 id="3-3-2-Node-操作方法"><a href="#3-3-2-Node-操作方法" class="headerlink" title="3.3.2 Node 操作方法"></a>3.3.2 Node 操作方法</h4><ul>
+<li><strong>静态方法</strong>（例如 <code>setRawIsLeaf</code>, <code>setRawNoKeys</code> 等）：<ul>
+<li>用于操作节点的原始数据 (<code>SubArray</code>)，例如设置节点是否为叶子节点、设置兄弟节点 UID 等。</li>
+</ul>
+</li>
+<li>**<code>loadNode(BPlusTree bTree, long uid)</code>**：<ul>
+<li>加载节点，通过 UID 从 <code>DataManager</code> 中读取数据，解析出节点。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">static Node loadNode(BPlusTree bTree, long uid) throws Exception &#123;</span><br><span class="line">    DataItem di = bTree.dm.read(uid);</span><br><span class="line">    assert di != null;</span><br><span class="line">    Node n = new Node();</span><br><span class="line">    n.tree = bTree;</span><br><span class="line">    n.dataItem = di;</span><br><span class="line">    n.raw = di.data();</span><br><span class="line">    n.uid = uid;</span><br><span class="line">    return n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>isLeaf()</code>**：判断节点是否是叶子节点，通过读锁确保并发访问的安全性。</li>
+<li><strong><code>searchNext(long key)</code></strong> 和 **<code>leafSearchRange(long leftKey, long rightKey)</code>**：<ul>
+<li>**<code>searchNext(long key)</code>**：在内部节点中查找合适的子节点用于继续查找。</li>
+<li>**<code>leafSearchRange(long leftKey, long rightKey)</code>**：在叶子节点中查找给定范围内的所有键。</li>
+</ul>
+</li>
+<li>**<code>insertAndSplit(long uid, long key)</code>**：<ul>
+<li>在节点中插入键值对，并处理节点的分裂。</li>
+<li><strong><code>before()</code></strong> 和 <strong><code>after()</code></strong> 操作用于保证数据的原子性，通过日志机制记录数据变更。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public InsertAndSplitRes insertAndSplit(long uid, long key) throws Exception &#123;</span><br><span class="line">    boolean success = false;</span><br><span class="line">    Exception err = null;</span><br><span class="line">    InsertAndSplitRes res = new InsertAndSplitRes();</span><br><span class="line"></span><br><span class="line">    dataItem.before();</span><br><span class="line">    try &#123;</span><br><span class="line">        success = insert(uid, key);</span><br><span class="line">        if (!success) &#123;</span><br><span class="line">            res.siblingUid = getRawSibling(raw);</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        if (needSplit()) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                SplitRes r = split();</span><br><span class="line">                res.newSon = r.newSon;</span><br><span class="line">                res.newKey = r.newKey;</span><br><span class="line">                return res;</span><br><span class="line">            &#125; catch (Exception e) &#123;</span><br><span class="line">                err = e;</span><br><span class="line">                throw e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        if (err == null &amp;&amp; success) &#123;</span><br><span class="line">            dataItem.after(TransactionManagerImpl.SUPER_XID);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            dataItem.unBefore();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>节点分裂 (<code>split()</code>)<ul>
+<li>当节点的键数量达到平衡点时，节点需要分裂。</li>
+<li>分裂会创建一个新的节点，并将原节点的一半键移到新节点中。</li>
+</ul>
+</li>
+</ul>
+<p><code>BPlusTree</code> 和 <code>Node</code> 共同实现了 MYDB 中的 B+ 树索引。以下是实现的主要功能和特性：</p>
+<ol>
+<li><strong>树管理</strong> (<code>BPlusTree</code>)：<ul>
+<li>维护了 B+ 树的根节点，并提供了创建、加载、插入、查找等操作。</li>
+<li>使用锁机制保证并发情况下的安全操作，确保对根节点的更新和读取都是互斥的。</li>
+</ul>
+</li>
+<li><strong>节点管理</strong> (<code>Node</code>)：<ul>
+<li><code>Node</code> 类实现了对节点的基本操作，包括设置和获取节点的各个字段、插入和查找、节点分裂等。</li>
+<li><code>Node</code> 使用 <code>DataItem</code> 提供的数据存储接口，数据修改前后通过 <code>before()</code> 和 <code>after()</code> 记录日志，保证数据操作的事务性。</li>
+<li>叶子节点之间通过 <code>SiblingUid</code> 实现链表结构，方便范围查找操作。</li>
+</ul>
+</li>
+<li><strong>线程安全</strong>：<ul>
+<li><code>BPlusTree</code> 和 <code>Node</code> 类均使用锁机制，确保在多线程环境下，对 B+ 树节点的读取和修改是安全的。</li>
+</ul>
+</li>
+<li><strong>日志与恢复</strong>：<ul>
+<li><code>Node</code> 类中的插入和分裂操作会对数据进行日志记录，这样在数据库崩溃恢复时，可以通过日志恢复一致性。</li>
+</ul>
+</li>
+<li><strong>递归结构</strong>：<ul>
+<li>B+ 树的插入和查找通过递归的方式实现，插入时可能导致分裂，分裂可能进一步向上递归，最终更新根节点。</li>
+</ul>
+</li>
+</ol>
+<p>这个 B+ 树实现是 MYDB 的索引管理的一部分，能够高效地进行数据的查找、插入和范围查询。同时，它结合了事务和日志管理，确保在崩溃恢复时数据的一致性。</p>
+<h1 id="四、表管理"><a href="#四、表管理" class="headerlink" title="四、表管理"></a>四、表管理</h1><p><code>TableManagerImpl</code> 类实现了表管理器，负责对表的增删改查，以及对事务的管理。它的主要职责如下：它维护了表的元数据以及各个表的缓存。这个类直接为数据库的最上层（如 Server 层）提供服务接口。</p>
+<ul>
+<li>加载并缓存数据库中的所有表。</li>
+<li>提供对表的 CRUD 操作的接口。</li>
+<li>提供对事务的开始、提交和回滚的管理。</li>
+</ul>
+<p>每个方法在执行操作前后，都使用互斥锁保证线程安全。此外，它维护了对事务的表访问缓存，以便事务提交或回滚时对相应的表进行处理。</p>
+<h3 id="4-1-属性"><a href="#4-1-属性" class="headerlink" title="4.1. 属性"></a>4.1. 属性</h3><ul>
+<li>**<code>VersionManager vm</code>**：版本管理器，负责管理事务和版本控制。</li>
+<li>**<code>DataManager dm</code>**：数据管理器，负责与底层数据的交互。</li>
+<li>**<code>Booter booter</code>**：负责管理数据库的启动信息，如第一个表的 UID。</li>
+<li>**<code>Map&lt;String, Table&gt; tableCache</code>**：缓存了表名到 <code>Table</code> 对象的映射，用于快速访问表。</li>
+<li>**<code>Map&lt;Long, List&lt;Table&gt;&gt; xidTableCache</code>**：缓存了事务 ID 到该事务所涉及表的映射，用于管理各个事务中的表。</li>
+<li>**<code>Lock lock</code>**：互斥锁，用于保证对表缓存的线程安全操作。</li>
+</ul>
+<h1 id="五、服务"><a href="#五、服务" class="headerlink" title="五、服务"></a>五、服务</h1><p>MYDB 的 C&#x2F;S 结构使得它能够像 MySQL 一样，通过客户端与服务器通信执行 SQL 语句。其核心在于：</p>
+<ul>
+<li>使用 <code>Package</code> 封装数据与异常。</li>
+<li><code>Encoder</code> 用于编码和解码数据，<code>Transporter</code> 用于在网络上传输字节。</li>
+<li>服务器使用线程池来处理每个客户端请求。</li>
+<li><code>Executor</code> 调用 <code>TableManager</code> 来实际执行 SQL 语句，并返回结果给客户端。</li>
+</ul>
+<h3 id="客户端实现-Client"><a href="#客户端实现-Client" class="headerlink" title="客户端实现 (Client)"></a>客户端实现 (<code>Client</code>)</h3><p>客户端的 <code>Launcher</code> 类是整个客户端应用的启动入口。它的作用是：</p>
+<ol>
+<li>创建与服务器的连接 (<code>Socket</code>)。</li>
+<li>通过网络传输器 (<code>Transporter</code>) 和编码器 (<code>Encoder</code>) 构建打包器 (<code>Packager</code>)。</li>
+<li>使用客户端 (<code>Client</code>) 和命令行 Shell (<code>Shell</code>) 来与服务器交互。</li>
+</ol>
+<p><strong>Socket</strong>：用于与服务器建立连接。</p>
+<p><strong>Encoder 和 Transporter</strong>：用于对数据进行编码和网络传输。</p>
+<p><strong>Packager</strong>：用于打包和解包客户端与服务器之间的通信。</p>
+<p><strong>Shell</strong>：提供一个交互式命令行，接受用户的输入，并将其通过 <code>Client</code> 发往服务器。</p>
+<h3 id="服务器实现-Server"><a href="#服务器实现-Server" class="headerlink" title="服务器实现 (Server)"></a>服务器实现 (<code>Server</code>)</h3><p>服务器的 <code>Server</code> 类实现了服务器端的监听和处理客户端请求的逻辑。它使用 <code>ServerSocket</code> 监听端口，并为每个客户端连接创建一个新线程来处理请求。</p>
+<ul>
+<li><strong>ServerSocket</strong>：用来监听指定的端口，等待客户端的连接请求。</li>
+<li>**线程池 (<code>ThreadPoolExecutor</code>)**：用于管理客户端的连接，最多允许同时处理 20 个请求，每个新连接都会交给线程池中的一个线程处理。</li>
+</ul>
+<h3 id="客户端请求处理-HandleSocket"><a href="#客户端请求处理-HandleSocket" class="headerlink" title="客户端请求处理 (HandleSocket)"></a>客户端请求处理 (<code>HandleSocket</code>)</h3><p><code>HandleSocket</code> 类实现了 <code>Runnable</code> 接口，用于处理来自客户端的请求。每个连接都会启动一个新线程，负责从客户端读取数据、处理数据，并将结果返回给客户端。</p>
+<p>服务器端使用了 Java 的 <code>ThreadPoolExecutor</code> 作为线程池，来管理多个客户端的连接。</p>
+<ul>
+<li><code>ThreadPoolExecutor</code>的参数：<ul>
+<li>核心线程数为 10，最大线程数为 20。</li>
+<li>存活时间为 1 秒，使用 <code>ArrayBlockingQueue</code> 队列存放请求。</li>
+<li><strong>任务策略</strong>：使用 <code>CallerRunsPolicy</code>，即当线程池任务满时，由调用者线程执行任务。</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>服务器端使用了 Java 的 <code>ThreadPoolExecutor</code> 作为线程池，来管理多个客户端的连接。</p>
+<ul>
+<li><p><code>ThreadPoolExecutor</code></p>
+<p>的参数：</p>
+<ul>
+<li>核心线程数为 10，最大线程数为 20。</li>
+<li>存活时间为 1 秒，使用 <code>ArrayBlockingQueue</code> 队列存放请求。</li>
+<li><strong>任务策略</strong>：使用 <code>CallerRunsPolicy</code>，即当线程池任务满时，由调用者线程执行任务。</li>
+</ul>
+</li>
+</ul>
+<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><p><strong>Guava</strong>：Google 提供的开源库，包含了大量实用的工具类和方法。在项目中，Guava 被用于处理字节数组操作，例如使用 <code>Bytes.concat()</code> 方法高效地合并多个 <code>byte[]</code> 数组。这对于数据库系统中需要频繁操作二进制数据的场景非常有帮助。此外，Guava 还提供了丰富的集合类和缓存工具，提升了开发效率和代码质量。</p>
+<p><strong>Commons CLI</strong>：Apache 提供的命令行解析库。项目使用 Commons CLI 来解析应用程序启动时的命令行参数，例如 <code>-create</code>、<code>-open</code>、<code>-mem</code> 等选项。这使得您的数据库应用程序可以通过命令行灵活配置，提升了用户体验和应用的可配置性。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Carey</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2024/11/06/%E5%9F%BA%E4%BA%8EJava%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%A1%B9%E7%9B%AE/">http://example.com/2024/11/06/%E5%9F%BA%E4%BA%8EJava%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%A1%B9%E7%9B%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.pixabay.com/photo/2024/06/30/16/37/cat-8863536_1280.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/10/07/mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="mysql索引及性能优化"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">mysql索引及性能优化</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/12/10/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E4%B8%8E%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="Java设计模式：单例模式与工厂模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-10</div><div class="title">Java设计模式：单例模式与工厂模式</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.pixabay.com/photo/2024/06/30/16/37/cat-8863536_1280.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Carey</div><div class="author-info__description">随便写点什么吧</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/saivenl"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">1.</span> <span class="toc-text">启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E8%B0%83%E6%95%B4%E7%BC%96%E8%AF%91%E7%89%88%E6%9C%AC"><span class="toc-number">1.0.1.</span> <span class="toc-text">第一步：调整编译版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E7%BC%96%E8%AF%91%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.0.2.</span> <span class="toc-text">第二步：编译项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.0.3.</span> <span class="toc-text">第三步：创建数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E5%90%AF%E5%8A%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.0.4.</span> <span class="toc-text">第四步：启动数据库服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E5%90%AF%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">1.0.5.</span> <span class="toc-text">第五步：启动客户端</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%A1%B5%E9%9D%A2%E7%B4%A2%E5%BC%95%E4%B8%8E-DM-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">一、页面索引与 DM 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%A1%B5%E9%9D%A2%E7%B4%A2%E5%BC%95%E8%AE%BE%E8%AE%A1%E5%88%86%E6%9E%90"><span class="toc-number">2.0.1.</span> <span class="toc-text">1. 页面索引设计分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E9%94%81%E6%9C%BA%E5%88%B6%E4%B8%8E%E9%A1%B5%E9%9D%A2%E7%AE%A1%E7%90%86"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">1.1 锁机制与页面管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-PageOne-%E7%9A%84%E6%9C%89%E6%95%88%E6%80%A7%E6%A3%80%E6%9F%A5"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">1.2 PageOne 的有效性检查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86"><span class="toc-number">2.0.1.3.</span> <span class="toc-text">1.3 资源管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-%E6%80%BB%E7%BB%93"><span class="toc-number">2.0.1.4.</span> <span class="toc-text">1.4. 总结</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%AD%BB%E9%94%81%E4%B8%8E%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB"><span class="toc-number">3.</span> <span class="toc-text">二、死锁与事务隔离</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81IM%E7%B4%A2%E5%BC%95%E7%AE%A1%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">三、IM索引管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-BPlusTree-%E7%B1%BB"><span class="toc-number">4.0.1.</span> <span class="toc-text">3.1. BPlusTree 类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="toc-number">4.0.1.1.</span> <span class="toc-text">1.1 数据结构和构造方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">4.0.2.</span> <span class="toc-text">3.2 基本操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Node-%E7%B1%BB"><span class="toc-number">4.0.3.</span> <span class="toc-text">3.3. Node 类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">4.0.3.1.</span> <span class="toc-text">3.3.1 数据结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-Node-%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="toc-number">4.0.3.2.</span> <span class="toc-text">3.3.2 Node 操作方法</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%A1%A8%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">四、表管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%B1%9E%E6%80%A7"><span class="toc-number">5.0.1.</span> <span class="toc-text">4.1. 属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%9C%8D%E5%8A%A1"><span class="toc-number">6.</span> <span class="toc-text">五、服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%9E%E7%8E%B0-Client"><span class="toc-number">6.0.1.</span> <span class="toc-text">客户端实现 (Client)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%9E%E7%8E%B0-Server"><span class="toc-number">6.0.2.</span> <span class="toc-text">服务器实现 (Server)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86-HandleSocket"><span class="toc-number">6.0.3.</span> <span class="toc-text">客户端请求处理 (HandleSocket)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.0.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">7.</span> <span class="toc-text">其它</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/06/%E5%9F%BA%E4%BA%8EJava%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%A1%B9%E7%9B%AE/" title="基于Java实现的数据库项目">基于Java实现的数据库项目</a><time datetime="2024-11-06T01:43:59.000Z" title="Created 2024-11-06 09:43:59">2024-11-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/07/mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="mysql索引及性能优化">mysql索引及性能优化</a><time datetime="2024-10-07T04:02:18.000Z" title="Created 2024-10-07 12:02:18">2024-10-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/12/B-%E6%A0%91%E7%B4%A2%E5%BC%95/" title="B+树索引">B+树索引</a><time datetime="2024-06-12T14:43:11.000Z" title="Created 2024-06-12 22:43:11">2024-06-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/07/%E9%A6%99%E6%B8%AF%E8%A5%BF%E8%B4%A1-%E5%BE%92%E6%AD%A5%E7%BE%8E%E6%99%AF/" title="香港西贡-徒步美景">香港西贡-徒步美景</a><time datetime="2024-02-07T09:05:45.000Z" title="Created 2024-02-07 17:05:45">2024-02-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/11/%E5%85%B3%E4%BA%8E%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%BA%94%E7%94%A8%E8%AF%B4%E6%98%8E/" title="关于Java场景常见数据结构说明">关于Java场景常见数据结构说明</a><time datetime="2023-12-11T11:27:25.000Z" title="Created 2023-12-11 19:27:25">2023-12-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Carey</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
